@@ -9,6 +9,7 @@ import morgan from "morgan";
 
 //Routes
 import postsRoutes from "../server/routes/api/post"
+import userRoutes from "../server/routes/api/user"
 
 const app = express()
 const {MONGO_URI} = config
@@ -30,5 +31,6 @@ mongoose.connect(MONGO_URI,{
 //Use router
 app.get('/');
 app.use('/api/post', postsRoutes);
+app.use('/api/user', userRoutes);
 
 export default app;

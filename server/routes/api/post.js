@@ -9,7 +9,7 @@ router.get('/', async(req, res)=> {
     res.json(result)
 })
 
-router.post('/',async(req, res, next)=> {
+router.post('/',async(req, res)=> {
     try{
         console.log(req, "req")
         const {title, contents, file_url, creator} = req.body
