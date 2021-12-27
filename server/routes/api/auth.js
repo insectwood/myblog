@@ -25,29 +25,31 @@ router.post('/', (req, res)=>{
       return res.status(400).json({msg : "fulfill all field"});
    }
 
-   const user = User.findOne({email})
-   if(!user){
-      return res.status(400).json({msg : "user is not existed"});
-   }
-
-   const compared = bcrypt.compare(password, user.password);
-   if(!compared){
-      return res.status(400).json({mgs : "password is not matched"})
-   }
-   const token = jwt.sign(
-       {id:user.id},
-          JWT_SECRET,
-          {expiresIn: "1 days",
-          });
-
-   res.json({
-      token,
-      user: {
-         id: user.id,
-         name: user.name,
-         email: user.email,
-         role: user.role
+   User.findOne({email}).then((user) => {
+      if(!user){
+         return res.status(400).json({msg : "user is not existed"});
       }
+
+      const compared = bcrypt.compare(password, user.password).then((compared) => {
+         if(!compared){
+            return res.status(400).json({mgs : "password is not matched"})
+         }
+         const token = jwt.sign(
+             {id:user.id},
+             JWT_SECRET,
+             {expiresIn: "1 days",
+             });
+
+         res.json({
+            token,
+            user: {
+               id: user.id,
+               name: user.name,
+               email: user.email,
+               role: user.role
+            }
+         });
+      });
    });
 });
 
