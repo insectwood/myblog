@@ -6,6 +6,8 @@ import {routerMiddleware} from "connected-react-router";
 import createRootReducer from "./redux/reducers/index";
 import rootSaga from "./redux/sagas";
 
+export const history = createBrowserHistory();
+
 const sagaMiddleware = createSagaMiddleware();
 const init = {};
 const middlewares = [sagaMiddleware, routerMiddleware(history)]
@@ -15,7 +17,7 @@ const store = createStore(
     createRootReducer(history),
     init,
     composeEnhancer(applyMiddleware(...middlewares))
-)
-sagaMiddleware.run(rootSaga)
+);
+sagaMiddleware.run(rootSaga);
 
-export const history = createBrowserHistory();
+export default store;
