@@ -4,7 +4,8 @@ import {ConnectedRouter} from "connected-react-router"
 import store, {history} from "./store";
 import MyblogRouter from "./routes/Router";
 
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/custom.scss";
 
 const App = () => {
   return(
