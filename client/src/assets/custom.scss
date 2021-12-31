@@ -2,3 +2,13 @@
   background: #343434;
   color: #ffffff;
 }
+
+#header1 {
+  height: 200px;
+  background: url("../assets/header.jpg");
+  background-position: 54% 95%;
+  background-attachment: fixed;
+  color: #ffffff;
+  border-bottom: 1px #eee solid;
+  padding-top: 60px;
+}
