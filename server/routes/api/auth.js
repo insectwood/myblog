@@ -32,7 +32,7 @@ router.post('/', (req, res)=>{
 
       const compared = bcrypt.compare(password, user.password).then((compared) => {
          if(!compared){
-            return res.status(400).json({mgs : "password is not matched"})
+            return res.status(400).json({msg : "password is not matched"})
          }
          const token = jwt.sign(
              {id:user.id},

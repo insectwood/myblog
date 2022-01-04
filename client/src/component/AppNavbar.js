@@ -1,10 +1,29 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useCallback, useEffect, useState} from "react";
 import {Nav, Navbar} from "reactstrap";
-
-// Link error why??
-import {Link} from "react-router-dom";
+import LoginModal from "./auth/LoginModal";
+import {useDispatch, useSelector} from "react-redux";
+import {LOGOUT_REQUEST} from "../redux/types";
+//Link version error
+//import {Link} from "react-router-dom";
 
 const AppNavbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const {isAuthenticated, user, userRole} = useSelector((state) => state.auth)
+
+    //console.log(userRole, "UserRole");
+    const dispatch = useDispatch();
+
+    //https://reactjs.org/docs/hooks-reference.html#usecallback
+    const onLogout = useCallback(() => {
+        dispatch({
+            type: LOGOUT_REQUEST
+        })
+    }, [dispatch])
+
+    useEffect(() => {
+        setIsOpen(false)
+    }, [user])
+
     return (
         <Fragment>
             <Navbar color="dark" dark expand="lg" className="sticky-top">
@@ -13,10 +32,10 @@ const AppNavbar = () => {
                 </a>
                 <Nav>
                     {
-                        false ?
-                        (<h1 className="text-white">auth link</h1>)
+                        isAuthenticated ?
+                        (<h1 className="text-white">authenticated</h1>)
                         :
-                        (<h1 className="text-white">guest link</h1>)
+                        (<LoginModal/>)
                     }
                 </Nav>
             </Navbar>
