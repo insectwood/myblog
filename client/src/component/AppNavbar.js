@@ -1,10 +1,11 @@
 import React, {Fragment, useCallback, useEffect, useState} from "react";
-import {Nav, Navbar} from "reactstrap";
+import {Button, Nav, Navbar, NavItem, Form} from "reactstrap";
 import LoginModal from "./auth/LoginModal";
 import {useDispatch, useSelector} from "react-redux";
 import {LOGOUT_REQUEST} from "../redux/types";
+import RegistModal from "./auth/RegistModal";
 //Link version error
-//import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const AppNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,59 @@ const AppNavbar = () => {
         setIsOpen(false)
     }, [user])
 
+    const addPostClick = () => {
+
+    }
+
+    const authLink = (
+        <Fragment>
+            <NavItem>
+                {userRole === "admin" ? (
+                    <Form className="col mt-2">
+                        <Link to="post" className="btn btn-success block text-white px-3" onClick={addPostClick}>
+                            Add Post
+                        </Link>
+                    </Form>
+                ): ""}
+            </NavItem>
+            <NavItem className="d-flex justify-content-center">
+                <Form className="col mt-2">
+                    {user && user.name? (
+                        <Link>
+                            <Button outline color="light" className="px-3" block>
+                                <strong>{user ? "Welcome ${user.name}": ""}</strong>
+                            </Button>
+                        </Link>
+                    ): (
+                        <Button outline color="light" className="px-3" block>
+                            <strong>"no user"</strong>
+                        </Button>
+                    )}
+                </Form>
+            </NavItem>
+            <NavItem>
+                <Form className="col">
+                    <Link onClick={onLogout} to="#">
+                        <Button outline color="light" className="mt-2" block>
+                            Logout
+                        </Button>
+                    </Link>
+                </Form>
+            </NavItem>
+        </Fragment>
+    )
+
+    const guestLink = (
+        <Fragment>
+            <NavItem>
+                <RegistModal/>
+            </NavItem>
+            <NavItem>
+                <LoginModal/>
+            </NavItem>
+        </Fragment>
+    )
+
     return (
         <Fragment>
             <Navbar color="dark" dark expand="lg" className="sticky-top">
@@ -33,9 +87,9 @@ const AppNavbar = () => {
                 <Nav>
                     {
                         isAuthenticated ?
-                        (<h1 className="text-white">authenticated</h1>)
+                        (authLink)
                         :
-                        (<LoginModal/>)
+                        (guestLink)
                     }
                 </Nav>
             </Navbar>
