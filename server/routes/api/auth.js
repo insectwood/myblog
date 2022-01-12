@@ -17,7 +17,6 @@ const router = express.Router();
     @access     Public
  */
 router.post('/', (req, res)=>{
-
    const {email, password} = req.body;
 
    //temprary validation

@@ -34,20 +34,18 @@ const AppNavbar = () => {
             <NavItem>
                 {userRole === "admin" ? (
                     <Form className="col mt-2">
-                        <Link to="post" className="btn btn-success block text-white px-3" onClick={addPostClick}>
+                        <a href="post" className="btn btn-success block text-white px-3" onClick={addPostClick}>
                             Add Post
-                        </Link>
+                        </a>
                     </Form>
                 ): ""}
             </NavItem>
             <NavItem className="d-flex justify-content-center">
                 <Form className="col mt-2">
                     {user && user.name? (
-                        <Link>
                             <Button outline color="light" className="px-3" block>
-                                <strong>{user ? "Welcome ${user.name}": ""}</strong>
+                                <strong>{user ?  `Welcome ${user.name}`: ""}</strong>
                             </Button>
-                        </Link>
                     ): (
                         <Button outline color="light" className="px-3" block>
                             <strong>"no user"</strong>
@@ -57,11 +55,11 @@ const AppNavbar = () => {
             </NavItem>
             <NavItem>
                 <Form className="col">
-                    <Link onClick={onLogout} to="#">
+                    <a href="#" onClick={onLogout}>
                         <Button outline color="light" className="mt-2" block>
                             Logout
                         </Button>
-                    </Link>
+                    </a>
                 </Form>
             </NavItem>
         </Fragment>

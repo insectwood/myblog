@@ -1,6 +1,16 @@
 import axios from "axios";
 import {all, takeEvery, call, put, fork} from "redux-saga/effects";
-import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS} from "../types";
+import {
+    LOGIN_FAILURE,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGOUT_FAILURE,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    USER_LOADING_FAILURE,
+    USER_LOADING_REQUEST,
+    USER_LOADING_SUCCESS
+} from "../types";
 
 // Login
 const loginUserAPI = (loginData) => {
@@ -34,7 +44,6 @@ function* watchLoginUser() {
 }
 
 // LOGOUT
-
 function* logout(action) {
     try {
         yield put({
@@ -52,8 +61,42 @@ function* watchLogout() {
     yield takeEvery(LOGOUT_REQUEST, logout);
 }
 
+// User Loading
+const userLoadingAPI = (token) => {
+    console.log(token);
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    if (token) {
+        config.headers["x-auth-token"] = token;
+    }
+    return axios.get("api/auth/user", config);
+};
+
+function* userLoading(action) {
+    try {
+        console.log(action, "userLoading");
+        const result = yield call(userLoadingAPI, action.payload);
+        yield put({
+            type: USER_LOADING_SUCCESS,
+            payload: result.data,
+        });
+    } catch (e) {
+        yield put({
+            type: USER_LOADING_FAILURE,
+            payload: e.response,
+        });
+    }
+}
+
+function* watchUserLoading() {
+    yield takeEvery(USER_LOADING_REQUEST, userLoading);
+}
+
 export default function* authSaga(){
     yield all([
-        fork(watchLoginUser), fork(watchLogout)
+        fork(watchLoginUser), fork(watchLogout), fork(watchUserLoading)
     ])
 };

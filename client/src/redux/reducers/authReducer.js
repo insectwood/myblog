@@ -4,7 +4,13 @@ import {
     CLEAR_ERROR_SUCCESS,
     LOGIN_FAILURE,
     LOGIN_REQUEST,
-    LOGIN_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS
+    LOGIN_SUCCESS,
+    LOGOUT_FAILURE,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    USER_LOADING_FAILURE,
+    USER_LOADING_REQUEST,
+    USER_LOADING_SUCCESS
 } from "../types";
 
 const initialState = {
@@ -76,6 +82,30 @@ const authReducer = (state = initialState, action) => {
         case CLEAR_ERROR_FAILURE:
             return {
                 ...state,
+                errorMsg: "",
+            }
+        case USER_LOADING_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case USER_LOADING_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+                isLoading: false,
+                user: action.payload,
+                userId: action.payload.id,
+                userName: action.payload.name,
+                userRole: action.payload.role,
+            }
+        case USER_LOADING_FAILURE:
+            return {
+                ...state,
+                user: null,
+                isAuthenticated: false,
+                isLoading: false,
+                userRole: "guest",
                 errorMsg: "",
             }
         default:
