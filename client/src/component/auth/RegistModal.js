@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {CLEAR_ERROR_REQUEST, REGISTER_REQUEST} from "../../redux/types";
+import {CLEAR_ERROR_REQUEST, REGIST_REQUEST} from "../../redux/types";
 import {Alert, Button, Form, FormGroup, Input, Label, Modal, ModalHeader, ModalBody, NavLink} from "reactstrap";
 
 const RegistModal = () => {
@@ -43,7 +43,7 @@ const RegistModal = () => {
         const newUser = {name, email, password}
         console.log(newUser, "newUser")
         dispatch({
-            type: REGISTER_REQUEST,
+            type: REGIST_REQUEST,
             payload: newUser
         })
     }

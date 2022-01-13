@@ -8,6 +8,9 @@ import {
     LOGOUT_FAILURE,
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
+    REGIST_FAILURE,
+    REGIST_REQUEST,
+    REGIST_SUCCESS,
     USER_LOADING_FAILURE,
     USER_LOADING_REQUEST,
     USER_LOADING_SUCCESS
@@ -27,6 +30,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type){
+        case REGIST_REQUEST:
         case LOGOUT_REQUEST:
         case LOGIN_REQUEST:
             return {
@@ -34,6 +38,7 @@ const authReducer = (state = initialState, action) => {
                 errorMsg: "LOGIN_REQUEST",
                 isLoading: true
             }
+        case REGIST_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem("token", action.payload.token)
             return {
@@ -44,6 +49,7 @@ const authReducer = (state = initialState, action) => {
                 userId: action.payload.user.id,
                 userRole: action.payload.user.role
             }
+        case REGIST_FAILURE:
         case LOGOUT_FAILURE:
         case LOGIN_FAILURE:
             localStorage.removeItem("token")
