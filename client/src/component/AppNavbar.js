@@ -4,7 +4,6 @@ import LoginModal from "./auth/LoginModal";
 import {useDispatch, useSelector} from "react-redux";
 import {LOGOUT_REQUEST} from "../redux/types";
 import RegistModal from "./auth/RegistModal";
-//Link version error
 import {Link} from "react-router-dom";
 
 const AppNavbar = () => {
@@ -34,9 +33,9 @@ const AppNavbar = () => {
             <NavItem>
                 {userRole === "admin" ? (
                     <Form className="col mt-2">
-                        <a href="post" className="btn btn-success block text-white px-3" onClick={addPostClick}>
+                        <Link to="post" className="btn btn-success block text-white px-3" onClick={addPostClick}>
                             Add Post
-                        </a>
+                        </Link>
                     </Form>
                 ): ""}
             </NavItem>
@@ -55,11 +54,11 @@ const AppNavbar = () => {
             </NavItem>
             <NavItem>
                 <Form className="col">
-                    <a href="#" onClick={onLogout}>
+                    <Link to="#" onClick={onLogout}>
                         <Button outline color="light" className="mt-2" block>
                             Logout
                         </Button>
-                    </a>
+                    </Link>
                 </Form>
             </NavItem>
         </Fragment>

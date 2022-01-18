@@ -35,7 +35,7 @@ const authReducer = (state = initialState, action) => {
         case LOGIN_REQUEST:
             return {
                 ...state,
-                errorMsg: "LOGIN_REQUEST",
+                errorMsg: "",
                 isLoading: true
             }
         case REGIST_SUCCESS:

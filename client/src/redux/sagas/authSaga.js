@@ -2,7 +2,8 @@ import axios from "axios";
 import {all, takeEvery, call, put, fork} from "redux-saga/effects";
 import {
     CLEAR_ERROR_FAILURE,
-    CLEAR_ERROR_REQUEST, CLEAR_ERROR_SUCCESS,
+    CLEAR_ERROR_REQUEST,
+    CLEAR_ERROR_SUCCESS,
     LOGIN_FAILURE,
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
